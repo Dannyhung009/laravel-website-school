@@ -21,13 +21,20 @@
                 <td width="10%">顯示</td>
                 <td width="10%">刪除</td>
             </tr>
+            @isset($rows)
+            @foreach($rows as $row)
             <tr>
-                <td>圖片</td>
-                <td><input type="text" name="" id=""></td>
-                <td><button class="btn btn-success btn-sm">顯示</button></td>
-                <td><button class="btn btn-danger btn-sm">刪除</button></td>
-                <td><button class="btn btn-info btn-sm">編輯</button></td>
+                <td><img src="{{asset('img/'.$row->img)}}" alt="" style="width:300px;height:30px;"></td>
+                <!-- <td><input type="text" name="" id=""></td> -->
+                <td>{{$row->text}}</td>
+                <td><button class="btn btn-success btn-sm" data-id="{{$row->id}}">@if($row->sh==1) 顯示
+                        @else 隱藏 @endif
+                    </button></td>
+                <td><button class="btn btn-danger btn-sm data-id=" {{$row->id}}">刪除</button></td>
+                <td><button class="btn btn-info btn-sm data-id=" {{$row->id}}">編輯</button></td>
             </tr>
+            @endforeach
+            @endisset
         </table>
 
     </div>
@@ -42,7 +49,7 @@
             $("#modal").html(modal)
             $("#baseModal").modal("show")
 
-            $("#baseModal").on("hidden.bs.modal",function(){
+            $("#baseModal").on("hidden.bs.modal", function() {
                 $("#baseModal").modal("dispose")
                 $("#modal").html("")
             })

@@ -25,11 +25,11 @@
                 <table class="m-auto">
                     <tr>
                         <td>標題區圖片</td>
-                        <td>@include('layouts.input',['type'=>'file','name'=>'img'])</td>
+                        <td><input type="file" name="" id=""></td>
                     </tr>
                     <tr>
                         <td>標題區替代文字</td>
-                        <td><input type="text" name="" id=""></td>
+                        <td><input type="file" name="" id=""></td>
                     </tr>
                 </table>
 
