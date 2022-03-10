@@ -15,9 +15,9 @@ class TitleController extends Controller
     public function index()
     {
         //
-        $all=Title::all();
+        $all = Title::all();
         // dd($all);
-        return view('backend.module', ['header' => '網站標題管理', 'module' => 'Title','rows'=>$all]);
+        return view('backend.module', ['header' => '網站標題管理', 'module' => 'Title', 'rows' => $all]);
     }
 
     /**
@@ -28,7 +28,25 @@ class TitleController extends Controller
     public function create()
     {
         //
-        
+        $view = [
+            'action' => "/admin/title",
+            'modal_header' => "新增網站標題",
+            'modal_body' => [
+                [
+                    'label' => '標題區圖片',
+                    'tag' => 'input',
+                    'type' => 'file',
+                    'name' => 'img'
+                ],
+                [
+                    'label' => '標題區替代文字',
+                    'tag' => 'input',
+                    'type' => 'text',
+                    'name' => 'text'
+                ],
+            ],
+        ];
+        return view(" modals.base_modal", $view);
     }
 
     /**
@@ -40,6 +58,33 @@ class TitleController extends Controller
     public function store(Request $request)
     {
         //
+        if($request->hasFile('img') && $request->file('img')->isValid()){
+            $title=new Title;
+            $request->file('img')->storeAs('public',$request->file('img')->getClientOriginalName());
+                       
+            $title->img=$request->file('img')->getClientOriginalName();
+            $title->text=$request->input('text');
+            $title->save();
+
+        }
+        return redirect('/admin/title');
+
+        //第一版
+        // dd($request);
+        // if($request->hasFile('img') && $request->file('img')->isValid()){
+        //     $filename=$request->file('img')->getClientOriginalName();
+        //     $request->file('img')->storeAs('img',$filename);
+        //     $text=$request->input('text');
+
+        //     $title=new Title;
+        //     $title->img=$filename;
+        //     $title->text=$text;
+
+        // }
+
+            
+
+        // return "儲存新資料";
     }
 
     /**

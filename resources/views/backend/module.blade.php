@@ -24,7 +24,7 @@
             @isset($rows)
             @foreach($rows as $row)
             <tr>
-                <td><img src="{{asset('img/'.$row->img)}}" alt="" style="width:300px;height:30px;"></td>
+                <td><img src="{{asset('storage/'.$row->img)}}" alt="" style="width:300px;height:30px;"></td>
                 <!-- <td><input type="text" name="" id=""></td> -->
                 <td>{{$row->text}}</td>
                 <td><button class="btn btn-success btn-sm" data-id="{{$row->id}}">@if($row->sh==1) 顯示
