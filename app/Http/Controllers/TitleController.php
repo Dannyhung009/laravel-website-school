@@ -58,14 +58,13 @@ class TitleController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->hasFile('img') && $request->file('img')->isValid()){
-            $title=new Title;
-            $request->file('img')->storeAs('public',$request->file('img')->getClientOriginalName());
-                       
-            $title->img=$request->file('img')->getClientOriginalName();
-            $title->text=$request->input('text');
-            $title->save();
+        if ($request->hasFile('img') && $request->file('img')->isValid()) {
+            $title = new Title;
+            $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
 
+            $title->img = $request->file('img')->getClientOriginalName();
+            $title->text = $request->input('text');
+            $title->save();
         }
         return redirect('/admin/title');
 
@@ -82,7 +81,7 @@ class TitleController extends Controller
 
         // }
 
-            
+
 
         // return "儲存新資料";
     }
@@ -107,6 +106,34 @@ class TitleController extends Controller
     public function edit($id)
     {
         //
+        $title = Title::find($id);
+        $view = [
+            'action' => '/admin/title/'.$id,
+            'method'=>'PATCH',
+            'modal_header' => "編輯網站標題資料",
+            'modal_body' => [
+                [
+                    'label' => '目前標題圖片',
+                    'tag' => 'img',
+                    'src' => $title->img,
+                    'style' => 'width:300px;height:30px'
+                ],
+                [
+                    'label' => '更換標題區圖片',
+                    'tag' => 'input',
+                    'type' => 'file',
+                    'name' => 'img'
+                ],
+                [
+                    'label' => '標題區替代文字',
+                    'tag' => 'input',
+                    'type' => 'text',
+                    'name' => 'text',
+                    'value' => $title->text
+                ],
+            ],
+        ];
+        return view(" modals.base_modal", $view);
     }
 
     /**
@@ -119,6 +146,29 @@ class TitleController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $title=Title::find($id);
+        if ($request->hasFile('img') && $request->file('img')->isValid()) {
+            
+            $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
+
+            $title->img = $request->file('img')->getClientOriginalName();
+            
+
+        }
+
+        if($title->text!=$request->input('text')){
+            $title->text = $request->input('text');
+        }
+
+
+
+
+        
+        $title->save();    
+        // $title=Title::where("id",$id)->get();
+
+        return redirect('admin/title');
+        // return redirect('/admin/title');
     }
 
     /**
@@ -130,5 +180,7 @@ class TitleController extends Controller
     public function destroy($id)
     {
         //
+        Title::destroy($id);
+
     }
 }

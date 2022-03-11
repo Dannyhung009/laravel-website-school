@@ -36,7 +36,7 @@ Route::prefix('admin')->group(function(){
     Route::get('/news',[NewsController::class,'index']);
     Route::get('/admin',[AdminController::class,'index']);
     Route::get('/menu',[MenuController::class,'index']);
-
+    
     //post
     Route::post('/title',[TitleController::class,'store']);
     Route::post('/ad',[AdController::class,'store']);
@@ -47,6 +47,14 @@ Route::prefix('admin')->group(function(){
     Route::post('/news',[NewsController::class,'store']);
     Route::post('/admin',[AdminController::class,'store']);
     Route::post('/menu',[MenuController::class,'store']);
+    
+    //update
+    Route::patch("/title/{id}",[TitleController::class,'update']);
+
+    //delete
+    Route::delete("/title/{id}",[TitleController::class,'destroy']);
+
+
 });
 
 
@@ -58,6 +66,12 @@ Route::prefix('admin')->group(function(){
 Route::get("modals/addTitle", [TitleController::class,'create']);
 Route::get("modals/addAd", [AdController::class,'create']);
 Route::view("modals/addImage", 'modals.base_modal', ['modal_header' => "新增校園映象圖片"]);
+
+//edit
+Route::get("modals/title/{id}",[TitleController::class,'edit']);
+
+
+
 
 // Route::view("modals/addTitle", 'modals.base_modal', ['modal_header' => "新增網站標題"]);
 // Route::view("modals/addAd", 'modals.base_modal', ['modal_header' => "新增動態廣告文字"]);
@@ -129,3 +143,4 @@ Route::view("modals/addImage", 'modals.base_modal', ['modal_header' => "新增�
 //     Route::view('/title', 'backend.title');
 //     Route::view('/ad', 'backend.ad');
 // });
+

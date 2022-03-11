@@ -30,8 +30,8 @@
                 <td><button class="btn btn-success btn-sm" data-id="{{$row->id}}">@if($row->sh==1) 顯示
                         @else 隱藏 @endif
                     </button></td>
-                <td><button class="btn btn-danger btn-sm data-id=" {{$row->id}}">刪除</button></td>
-                <td><button class="btn btn-info btn-sm data-id=" {{$row->id}}">編輯</button></td>
+                <td><button class="btn btn-danger btn-sm delete" data-id="{{$row->id}}">刪除</button></td>
+                <td><button class="btn btn-info btn-sm edit" data-id="{{$row->id}}">編輯</button></td>
             </tr>
             @endforeach
             @endisset
@@ -44,6 +44,12 @@
 @section("script")
 <!-- 寫js -->
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $("#addRow").on("click", function() {
         $.get("/modals/add{{ $module }}", function(modal) {
             $("#modal").html(modal)
@@ -53,6 +59,32 @@
                 $("#baseModal").modal("dispose")
                 $("#modal").html("")
             })
+        })
+    })
+
+
+    $(".edit").on("click", function() {
+        let id = $(this).data('id');
+        $.get(`/modals/title/${ id }`, function(modal) {
+            $("#modal").html(modal)
+            $("#baseModal").modal("show")
+
+            $("#baseModal").on("hidden.bs.modal", function() {
+                $("#baseModal").modal("dispose")
+                $("#modal").html("")
+            })
+        })
+
+    })
+
+    $(".delete").on("click", function() {
+        let id = $(this).data('id');
+        $.ajax({
+            type: 'delete',
+            url: `/admin/title/${id}`,
+            scuccess: function() {
+                location.reload()
+            }
         })
     })
 </script>
