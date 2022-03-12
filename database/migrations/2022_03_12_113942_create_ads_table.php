@@ -17,7 +17,7 @@ class CreateAdsTable extends Migration
             $table->id();
             $table->string('text',64)->nullable();
             $table->string('img',127)->nullable();
-            $table->boolean('sh')->default(0);
+            $table->boolean('sh')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

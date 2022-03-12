@@ -25,39 +25,41 @@ use App\Http\Controllers\MenuController;
 
 Route::view('/', 'home');
 Route::redirect('/admin', '/admin/title');
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->group(function () {
+
     //get
-    Route::get('/title',[TitleController::class,'index']);
-    Route::get('/ad',[AdController::class,'index']);
-    Route::get('/image',[ImageController::class,'index']);
-    Route::get('/mvim',[MvimController::class,'index']);
-    Route::get('/total',[TotalController::class,'index']);
-    Route::get('/bottom',[BottomController::class,'index']);
-    Route::get('/news',[NewsController::class,'index']);
-    Route::get('/admin',[AdminController::class,'index']);
-    Route::get('/menu',[MenuController::class,'index']);
-    
+    Route::get('/title', [TitleController::class, 'index']);
+    Route::get('/ad', [AdController::class, 'index']);
+    Route::get('/image', [ImageController::class, 'index']);
+    Route::get('/mvim', [MvimController::class, 'index']);
+    Route::get('/total', [TotalController::class, 'index']);
+    Route::get('/bottom', [BottomController::class, 'index']);
+    Route::get('/news', [NewsController::class, 'index']);
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::get('/menu', [MenuController::class, 'index']);
+
     //post
-    Route::post('/title',[TitleController::class,'store']);
-    Route::post('/ad',[AdController::class,'store']);
-    Route::post('/image',[ImageController::class,'store']);
-    Route::post('/mvim',[MvimController::class,'store']);
-    Route::post('/total',[TotalController::class,'store']);
-    Route::post('/bottom',[BottomController::class,'store']);
-    Route::post('/news',[NewsController::class,'store']);
-    Route::post('/admin',[AdminController::class,'store']);
-    Route::post('/menu',[MenuController::class,'store']);
-    
+    Route::post('/title', [TitleController::class, 'store']);
+    Route::post('/ad', [AdController::class, 'store']);
+    Route::post('/image', [ImageController::class, 'store']);
+    Route::post('/mvim', [MvimController::class, 'store']);
+    Route::post('/total', [TotalController::class, 'store']);
+    Route::post('/bottom', [BottomController::class, 'store']);
+    Route::post('/news', [NewsController::class, 'store']);
+    Route::post('/admin', [AdminController::class, 'store']);
+    Route::post('/menu', [MenuController::class, 'store']);
+
     //update
-    Route::patch("/title/{id}",[TitleController::class,'update']);
+    Route::patch("/title/{id}", [TitleController::class, 'update']);
+    Route::patch('/ad/{id}', [AdController::class, 'update']);
 
     //delete
-    Route::delete("/title/{id}",[TitleController::class,'destroy']);
+    Route::delete("/title/{id}", [TitleController::class, 'destroy']);
+    Route::delete("/ad/{id}", [AdController::class, 'destroy']);
 
     //show
-    Route::patch("/title/sh/{id}",[TitleController::class,'display']);
-
-
+    Route::patch("/title/sh/{id}", [TitleController::class, 'display']);
+    Route::patch("/ad/sh/{id}", [AdController::class, 'display']);
 });
 
 
@@ -66,12 +68,13 @@ Route::prefix('admin')->group(function(){
 
 //modals
 
-Route::get("modals/addTitle", [TitleController::class,'create']);
-Route::get("modals/addAd", [AdController::class,'create']);
-Route::view("modals/addImage", 'modals.base_modal', ['modal_header' => "新增校園映象圖片"]);
+Route::get("modals/addTitle", [TitleController::class, 'create']);
+Route::get("modals/addAd", [AdController::class, 'create']);
+// Route::view("modals/addImage", 'modals.base_modal', ['modal_header' => "新增校園映象圖片"]);
 
 //edit
-Route::get("modals/title/{id}",[TitleController::class,'edit']);
+Route::get("modals/title/{id}", [TitleController::class, 'edit']);
+Route::get("modals/ad/{id}", [AdController::class, 'edit']);
 
 
 
@@ -146,4 +149,3 @@ Route::get("modals/title/{id}",[TitleController::class,'edit']);
 //     Route::view('/title', 'backend.title');
 //     Route::view('/ad', 'backend.ad');
 // });
-

@@ -18,7 +18,7 @@
                 @isset($cols)
                 @foreach($cols as $col)
                 <td width="{{ $col }}">{{ $col }}</td>
-                
+
 
 
                 @endforeach
@@ -54,7 +54,7 @@
             @endforeach
             @endisset
 
-           
+
         </table>
 
     </div>
@@ -85,7 +85,7 @@
 
     $(".edit").on("click", function() {
         let id = $(this).data('id');
-        $.get(`/modals/title/${ id }`, function(modal) {
+        $.get(`/modals/{{ strtolower($module) }}/${ id }`, function(modal) {
             $("#modal").html(modal)
             $("#baseModal").modal("show")
 
@@ -101,9 +101,9 @@
         let id = $(this).data('id');
         $.ajax({
             type: 'delete',
-            url: `/admin/title/${id}`,
+            url: `/admin/{{ strtolower($module) }}/${id}`,
             scuccess: function() {
-                location.reload()
+                location.reload(true)
             }
         })
     })
@@ -112,9 +112,9 @@
         let id = $(this).data('id');
         $.ajax({
             type: 'patch',
-            url: `/admin/title/sh/${id}`,
+            url: `/admin/{{ strtolower($module) }}/sh/${id}`,
             success: function() {
-                location.reload()
+                location.reload(true)
             }
 
         })

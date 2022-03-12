@@ -123,14 +123,14 @@ class AdController extends Controller
     public function store(Request $request)
     {
         //
-        if ($request->hasFile('img') && $request->file('img')->isValid()) {
-            $ad = new Ad;
-            // $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
+        // if ($request->hasFile('img') && $request->file('img')->isValid()) {
+        $ad = new Ad;
+        // $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
 
-            // $title->img = $request->file('img')->getClientOriginalName();
-            $ad->text = $request->input('text');
-            $ad->save();
-        }
+        // $title->img = $request->file('img')->getClientOriginalName();
+        $ad->text = $request->input('text');
+        $ad->save();
+        // }
         return redirect('/admin/ad');
 
         //第一版
@@ -173,7 +173,7 @@ class AdController extends Controller
         //
         $ad = Ad::find($id);
         $view = [
-            'action' => '/admin/title/' . $id,
+            'action' => '/admin/ad/' . $id,
             'method' => 'PATCH',
             'modal_header' => "編輯動態廣告文字資料",
             'modal_body' => [
@@ -217,7 +217,7 @@ class AdController extends Controller
 
 
 
-        
+
         // $title=Title::where("id",$id)->get();
 
         return redirect('admin/ad');
@@ -232,8 +232,23 @@ class AdController extends Controller
     {
         //複選
         $ad = Ad::find($id);
+        $view = [
+            'action' => '/admin/ad/' . $id,
+            'method' => 'PATCH',
+            'modal_header' => "編輯動態廣告文字資料",
+            'modal_body' => [
 
-        $ad->sh=($ad->sh+1)%2;
+                [
+                    'label' => '動態廣告文字',
+                    'tag' => 'input',
+                    'type' => 'text',
+                    'name' => 'text',
+                    'value' => $ad->text
+                ],
+            ],
+        ];
+
+        $ad->sh = ($ad->sh + 1) % 2;
 
 
         $ad->save();
@@ -256,8 +271,8 @@ class AdController extends Controller
         //     $findShow->save();
         // }
         // $title->save();
-        
-        
+
+
 
 
 
