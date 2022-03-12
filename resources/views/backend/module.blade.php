@@ -27,7 +27,7 @@
                 <td><img src="{{asset('storage/'.$row->img)}}" alt="" style="width:300px;height:30px;"></td>
                 <!-- <td><input type="text" name="" id=""></td> -->
                 <td>{{$row->text}}</td>
-                <td><button class="btn btn-success btn-sm" data-id="{{$row->id}}">@if($row->sh==1) 顯示
+                <td><button class="btn btn-success btn-sm show" data-id="{{$row->id}}">@if($row->sh==1) 顯示
                         @else 隱藏 @endif
                     </button></td>
                 <td><button class="btn btn-danger btn-sm delete" data-id="{{$row->id}}">刪除</button></td>
@@ -82,9 +82,21 @@
         $.ajax({
             type: 'delete',
             url: `/admin/title/${id}`,
-            scuccess: function() {
+            scuccess:function() {
                 location.reload()
             }
+        })
+    })
+
+    $(".show").on("click",function(){
+        let id =$(this).data('id');
+        $.ajax({
+            type:'patch',
+            url:`/admin/title/sh/${id}`,
+            success:function(){
+                location.reload()
+            }
+            
         })
     })
 </script>

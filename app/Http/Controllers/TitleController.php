@@ -108,8 +108,8 @@ class TitleController extends Controller
         //
         $title = Title::find($id);
         $view = [
-            'action' => '/admin/title/'.$id,
-            'method'=>'PATCH',
+            'action' => '/admin/title/' . $id,
+            'method' => 'PATCH',
             'modal_header' => "編輯網站標題資料",
             'modal_body' => [
                 [
@@ -146,30 +146,58 @@ class TitleController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $title=Title::find($id);
+        $title = Title::find($id);
         if ($request->hasFile('img') && $request->file('img')->isValid()) {
-            
+
             $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
 
             $title->img = $request->file('img')->getClientOriginalName();
-            
-
         }
 
-        if($title->text!=$request->input('text')){
+        if ($title->text != $request->input('text')) {
             $title->text = $request->input('text');
         }
 
 
 
 
-        
-        $title->save();    
+
+        $title->save();
         // $title=Title::where("id",$id)->get();
 
         return redirect('admin/title');
         // return redirect('/admin/title');
     }
+
+    /**
+     * 改變資料的顯示狀態
+     * 
+     */
+    public function display($id)
+    {
+        $title = Title::find($id);
+        if ($title->sh == 1) {
+            $title->sh = 0;
+            $findDefault = Title::where("sh", 0)->first();
+            $findDefault->sh = 1;
+
+            $title->save();
+            $findDefault->save();
+        } else {
+            $title->sh = 1;
+            $findShow = Title::where("sh", 1)->first();
+            $findShow->sh = 0;
+
+            $title->save();
+            $findShow->save();
+        }
+        // $title->save();
+        // $title->save();
+
+
+
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -179,8 +207,10 @@ class TitleController extends Controller
      */
     public function destroy($id)
     {
+
+
         //
-        Title::destroy($id);
+        $title=Title::destroy($id);
 
     }
 }
