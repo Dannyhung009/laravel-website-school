@@ -17,7 +17,68 @@ class TitleController extends Controller
         //
         $all = Title::all();
         // dd($all);
-        return view('backend.module', ['header' => '網站標題管理', 'module' => 'Title', 'rows' => $all]);
+        $cols = ['網站標題', '替代文字', '顯示', '刪除', '操作'];
+        $rows=[];
+
+        foreach($all as $a){
+            $tmp=[
+                [
+                    'tag'=>'img',
+                    // 參照前端模板{{asset('storage/'.$row->img)}}
+                    'src'=>$a->img,
+
+                    'style'=>'width:300px;height:30px',
+                    // 'style' => 'width:50%,height:30px',
+
+                ],
+                [
+                    'tag'=>'',
+                    'text'=>$a->text,
+
+                ],
+                [
+                    'tag'=>'button',
+                    'type'=>'button',
+                    'btn_color'=>'btn-success',
+                    'action'=>'show',
+                    'id'=>$a->id,
+                    'text'=>($a->sh==1)?'顯示':'隱藏',
+
+
+                ],
+                [
+                    'tag' => 'button',
+                    'type' => 'button',
+                    'btn_color' => 'btn-danger',
+                    'action' => 'delete',
+                    'id' => $a->id,
+                    'text' => '刪除',
+                    
+
+                ],
+                [
+                    'tag' => 'button',
+                    'type' => 'button',
+                    'btn_color' => 'btn-info',
+                    'action' => 'edit',
+                    'id' => $a->id,
+                    'text' => '編輯',
+
+                ],
+            ];
+
+            $rows[]=$tmp;
+        }
+        
+        // dd($rows);
+
+        $view = [
+            'header' => '網站標題管理',
+            'module' => 'Title',
+            'cols'=>$cols,
+            'rows' => $rows,
+        ];
+        return view('backend.module', $view);
     }
 
     /**
@@ -210,7 +271,6 @@ class TitleController extends Controller
 
 
         //
-        $title=Title::destroy($id);
-
+        $title = Title::destroy($id);
     }
 }

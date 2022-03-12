@@ -15,46 +15,26 @@
         </h5>
         <table class="table border-none text-center">
             <tr>
-                @isset($cols)
-                @foreach($cols as $col)
-                <td width="{{ $col }}">{{ $col }}</td>
-                
-
-
-                @endforeach
-                @endisset
-
-                <!-- 第一版 -->
-                <!-- <td width="">網站標題</td>
-                <td width="">替代文字</td>
-                <td width="10%">操作</td>
+                <!-- <td width="">網站標題</td> -->
+                <td width="">動態文字廣告</td>
+                <!-- <td width="10%">操作</td> -->
                 <td width="10%">顯示</td>
-                <td width="10%">刪除</td> -->
+                <td width="10%">刪除</td>
             </tr>
             @isset($rows)
             @foreach($rows as $row)
             <tr>
-                @foreach($row as $item)
-                <td>
-                    @switch($item['tag'])
-                    @case('img')
-                    @include('layouts.img',$item)
-                    @break
-                    @case('button')
-                    @include('layouts.button',$item)
-                    @break
-                    @default
-                    {{ $item['text'] }}
-
-
-                    @endswitch
-                </td>
-                @endforeach
+                <!-- <td><img src="{{asset('storage/'.$row->img)}}" alt="" style="width:300px;height:30px;"></td> -->
+                <!-- <td><input type="text" name="" id=""></td> -->
+                <td>{{$row->text}}</td>
+                <td><button class="btn btn-success btn-sm show" data-id="{{$row->id}}">@if($row->sh==1) 顯示
+                        @else 隱藏 @endif
+                    </button></td>
+                <td><button class="btn btn-danger btn-sm delete" data-id="{{$row->id}}">刪除</button></td>
+                <!-- <td><button class="btn btn-info btn-sm edit" data-id="{{$row->id}}">編輯</button></td> -->
             </tr>
             @endforeach
             @endisset
-
-           
         </table>
 
     </div>
@@ -102,21 +82,21 @@
         $.ajax({
             type: 'delete',
             url: `/admin/title/${id}`,
-            scuccess: function() {
+            scuccess:function() {
                 location.reload()
             }
         })
     })
 
-    $(".show").on("click", function() {
-        let id = $(this).data('id');
+    $(".show").on("click",function(){
+        let id =$(this).data('id');
         $.ajax({
-            type: 'patch',
-            url: `/admin/title/sh/${id}`,
-            success: function() {
+            type:'patch',
+            url:`/admin/title/sh/${id}`,
+            success:function(){
                 location.reload()
             }
-
+            
         })
     })
 </script>
