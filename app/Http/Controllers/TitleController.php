@@ -273,4 +273,7 @@ class TitleController extends Controller
         //
         $title = Title::destroy($id);
     }
+
+
+    
 }

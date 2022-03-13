@@ -10,18 +10,23 @@
     <button class="col-4 btn-light border py-3 text-center">管理登出</button>
     <div class="border w-100 p-1" style="height: 500px;">
         <h5 class="text-center border-bottom py-3">
+            @if($module!='Total' && $module !='Bottom')
+
             <button class="btn btn-sm btn-primary float-left" id="addRow">新增</button>
+            @endif
+
             {{ $header }}
         </h5>
         <table class="table border-none text-center">
             <tr>
                 @isset($cols)
+                @if($module != 'Total' && $module != 'Bottom')
+
                 @foreach($cols as $col)
                 <td width="{{ $col }}">{{ $col }}</td>
-
-
-
                 @endforeach
+
+                @endif
                 @endisset
 
                 <!-- 第一版 -->
@@ -32,6 +37,8 @@
                 <td width="10%">刪除</td> -->
             </tr>
             @isset($rows)
+            @if($module != 'Total' && $module != 'Bottom')
+
             @foreach($rows as $row)
             <tr>
                 @foreach($row as $item)
@@ -52,6 +59,14 @@
                 @endforeach
             </tr>
             @endforeach
+            @else
+            <tr>
+                <td>{{ $cols[0] }}</td>
+                <td>{{$rows[0]['text']}}</td>
+                <td>@include("layouts.button",$rows[1])</td>
+            </tr>
+
+            @endif
             @endisset
 
 
