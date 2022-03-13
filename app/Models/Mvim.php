@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Mvim extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['img', 'sh'];
 }

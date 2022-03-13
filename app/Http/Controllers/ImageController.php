@@ -86,7 +86,7 @@ class ImageController extends Controller
     {
         //
         $view = [
-            'action' => "/admin/Image",
+            'action' => "/admin/image",
             'modal_header' => "新增校園映像圖片",
             'modal_body' => [
                 [

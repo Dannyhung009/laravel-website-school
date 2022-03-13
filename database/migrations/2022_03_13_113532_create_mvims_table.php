@@ -15,6 +15,8 @@ class CreateMvimsTable extends Migration
     {
         Schema::create('mvims', function (Blueprint $table) {
             $table->id();
+            $table->string('img', 64);
+            $table->boolean('sh')->default(1);
             $table->timestamps();
         });
     }
