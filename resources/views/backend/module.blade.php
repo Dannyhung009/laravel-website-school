@@ -45,7 +45,7 @@
                 @foreach($row as $item)
                 <td>
                     @switch($item['tag'])
-                    
+
                     @case('img')
                     @include('layouts.img',$item)
                     @break
@@ -124,24 +124,53 @@
 
     })
 
+    // $(".delete").on("click", function() {
+    //     let id = $(this).data('id');
+    //     $.ajax({
+    //         type: 'delete',
+    //         url: `/admin/{{ strtolower($module) }}/${id}`,
+    //         scuccess: function() {
+    //             location.reload(true)
+    //         }
+    //     })
+    // })
+
     $(".delete").on("click", function() {
         let id = $(this).data('id');
+        let _this = $(this);
         $.ajax({
             type: 'delete',
             url: `/admin/{{ strtolower($module) }}/${id}`,
             scuccess: function() {
-                location.reload(true)
+                _this.parents('tr').remove()
             }
         })
     })
 
+    // $(".show").on("click", function() {
+    //     let id = $(this).data('id');
+    //     $.ajax({
+    //         type: 'patch',
+    //         url: `/admin/{{ strtolower($module) }}/sh/${id}`,
+    //         success: function() {
+    //             location.reload(true)
+    //         }
+
+    //     })
+    // })
+
     $(".show").on("click", function() {
         let id = $(this).data('id');
+        let _this = $(this)
         $.ajax({
             type: 'patch',
             url: `/admin/{{ strtolower($module) }}/sh/${id}`,
             success: function() {
-                location.reload(true)
+                if (_this.text() == "顯示") {
+                    _this.text('隱藏')
+                } else {
+                    _this.text('顯示')
+                }
             }
 
         })

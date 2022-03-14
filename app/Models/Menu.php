@@ -10,4 +10,8 @@ class Menu extends Model
     use HasFactory;
 
     protected $fillable = ['text', 'href','sh'];
+
+    public function subs(){
+        return $this->hasMany("App\Models\SubMenu");
+    }
 }
