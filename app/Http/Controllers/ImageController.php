@@ -200,20 +200,8 @@ class ImageController extends Controller
             $image->img = $request->file('img')->getClientOriginalName();
             $image->save();
         }
-
-        // if ($image->text != $request->input('text')) {
-        //     $image->text = $request->input('text');
-        // }
-
-
-
-
-
-
-        // $title=Image::where("id",$id)->get();
-
         return redirect('admin/image');
-        // return redirect('/admin/title');
+        
     }
 
     /**

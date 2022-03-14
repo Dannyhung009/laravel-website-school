@@ -23,7 +23,8 @@
                 @if($module != 'Total' && $module != 'Bottom')
 
                 @foreach($cols as $col)
-                <td width="{{ $col }}">{{ $col }}</td>
+                <!-- <td width="{{ $col }}">{{ $col }}</td> -->
+                <td>{{ $col }}</td>
                 @endforeach
 
                 @endif
@@ -44,23 +45,24 @@
                 @foreach($row as $item)
                 <td>
                     @switch($item['tag'])
-                        @case('img')
-                            @include('layouts.img',$item)
-                        @break
+                    
+                    @case('img')
+                    @include('layouts.img',$item)
+                    @break
 
-                        @case('button')
-                            @include('layouts.button',$item)
-                        @break
+                    @case('button')
+                    @include('layouts.button',$item)
+                    @break
 
-                        @case('embed')
-                            @include('layouts.embed',$item)
-                        @break
+                    @case('embed')
+                    @include('layouts.embed',$item)
+                    @break
 
-                        @case('textarea')
-                            @include('layouts.textarea',$item)
-                        @break
+                    @case('textarea')
+                    @include('layouts.textarea',$item)
+                    @break
 
-                        @default
+                    @default
                     {{ $item['text'] }}
 
 

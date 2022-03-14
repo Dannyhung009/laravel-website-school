@@ -17,15 +17,15 @@ class NewsController extends Controller
         //
         $all = News::all();
         // dd($all);
-        $cols = ['網站標題', '替代文字', '顯示', '刪除', '操作'];
+        $cols = ['最新消息內容', '顯示', '刪除', '編輯',];
         $rows = [];
 
         foreach ($all as $a) {
             $tmp = [
-                
+
                 [
                     'tag' => '',
-                    'text' => mb_substr($a->text,0,50,'utf8'),
+                    'text' => mb_substr($a->text, 0, 50, 'utf8'),
 
                 ],
                 [
@@ -85,12 +85,20 @@ class NewsController extends Controller
             'action' => "/admin/news",
             'modal_header' => "新增最新消息內容",
             'modal_body' => [
-                
+                // [
+                //     'label' => '最新消息內容',
+                //     'tag' => 'input',
+                //     'style' => 'width:200px;height:100px',
+                //     'type' => 'text',
+                //     'name' => 'text',
+                // ],
                 [
                     'label' => '最新消息內容',
                     'tag' => 'textarea',
-                    'style' => 'width:200px;height:100px',
-                    'name' => 'text'
+                    'style' => 'width:500px;height:300px',
+                    'name' => 'text',
+                    'type' => 'text',
+                    // 'value' => '',
                 ],
             ],
         ];
@@ -109,6 +117,9 @@ class NewsController extends Controller
         $news = new News;
         $news->text = $request->input('text');
         $news->save();
+        return redirect('/admin/news');
+
+
         // if ($request->hasFile('img') && $request->file('img')->isValid()) {
         //     $news = new News;
         //     $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
@@ -117,7 +128,8 @@ class NewsController extends Controller
         //     $news->text = $request->input('text');
         //     $news->save();
         // }
-        return redirect('/admin/news');
+        // return redirect('/admin/news');
+
 
         //第一版
         // dd($request);
@@ -163,8 +175,8 @@ class NewsController extends Controller
             'method' => 'PATCH',
             'modal_header' => "編輯最新消息內容",
             'modal_body' => [
-                
-                
+
+
                 [
                     'label' => '最新消息內容',
                     'tag' => 'textarea',
@@ -172,6 +184,13 @@ class NewsController extends Controller
                     'name' => 'text',
                     'value' => $news->text
                 ],
+                // [
+                //     'label' => '最新消息內容',
+                //     'tag' => 'textarea',
+                //     // 'style' => 'width:200px;height:100px;',
+                //     'name' => 'text',
+                //     'value' => $news->text
+                // ],
             ],
         ];
         return view(" modals.base_modal", $view);

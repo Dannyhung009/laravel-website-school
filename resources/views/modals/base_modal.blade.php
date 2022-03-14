@@ -38,7 +38,13 @@
                                 @case('input')
                                 @include("layouts.input",$row)
                                 @break
+
+                                @case('embed')
+                                @include('layouts.embed',$row)
+                                @break
+
                                 @case('textarea')
+                                @include('layouts.textarea',$row)
                                 @break
 
                                 @case('img')
