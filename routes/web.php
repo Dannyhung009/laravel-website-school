@@ -10,6 +10,7 @@ use App\Http\Controllers\BottomController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SubMenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/news', [NewsController::class, 'index']);
     Route::get('/admin', [AdminController::class, 'index']);
     Route::get('/menu', [MenuController::class, 'index']);
-    Route::get('/submenu', [SubMenuController::class, 'index']);
+    Route::get('/submenu/{menu_id}', [SubMenuController::class, 'index']);
 
     //post
     Route::post('/title', [TitleController::class, 'store']);
@@ -49,7 +50,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/news', [NewsController::class, 'store']);
     Route::post('/admin', [AdminController::class, 'store']);
     Route::post('/menu', [MenuController::class, 'store']);
-    Route::post('/submenu', [SubMenuController::class, 'store']);
+    Route::post('/submenu/{menu_id}', [SubMenuController::class, 'store']);
 
     //update
     Route::patch("/title/{id}", [TitleController::class, 'update']);
@@ -102,7 +103,7 @@ Route::get("modals/addBottom", [BottomController::class, 'create']);
 Route::get("modals/addNews", [NewsController::class, 'create']);
 Route::get("modals/addAdmin", [AdminController::class, 'create']);
 Route::get("modals/addMenu", [MenuController::class, 'create']);
-Route::get("modals/addSubMenu", [SubMenuController::class, 'create']);
+Route::get("modals/addSubMenu/{menu_id}", [SubMenuController::class, 'create']);
 
 // Route::view("modals/addImage", 'modals.base_modal', ['modal_header' => "新增校園映象圖片"]);
 

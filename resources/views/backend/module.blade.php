@@ -96,9 +96,10 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
     $("#addRow").on("click", function() {
-        $.get("/modals/add{{ $module }}", function(modal) {
+
+        @isset($menu_id)
+        $.get("/modals/add{{ $module }}/{{ $menu_id }}", function(modal) {
             $("#modal").html(modal)
             $("#baseModal").modal("show")
 
@@ -107,7 +108,32 @@
                 $("#modal").html("")
             })
         })
+        @else
+        $("#addRow").on("click", function() {
+            $.get("/modals/add{{ $module }}", function(modal) {
+                $("#modal").html(modal)
+                $("#baseModal").modal("show")
+
+                $("#baseModal").on("hidden.bs.modal", function() {
+                    $("#baseModal").modal("dispose")
+                    $("#modal").html("")
+                })
+            })
+        })
+        @endif
     })
+
+    // $("#addRow").on("click", function() {
+    //     $.get("/modals/add{{ $module }}", function(modal) {
+    //         $("#modal").html(modal)
+    //         $("#baseModal").modal("show")
+
+    //         $("#baseModal").on("hidden.bs.modal", function() {
+    //             $("#baseModal").modal("dispose")
+    //             $("#modal").html("")
+    //         })
+    //     })
+    // })
 
 
     $(".edit").on("click", function() {
@@ -174,6 +200,12 @@
             }
 
         })
+    })
+
+    $(".sub").on("click", function() {
+        let id = $(this).data("id")
+        location.href = `/admin/submenu/${id}`
+
     })
 </script>
 @endsection
