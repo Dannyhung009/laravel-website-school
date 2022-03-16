@@ -48,9 +48,9 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'us-cdbr-east-05.cleardb.net'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'us-cdbr-east-05.cleardb.net'),
+            'database' => env('DB_DATABASE', 'web1'),
             'username' => env('DB_USERNAME', 'b95cdb302fa1e4'),
             'password' => env('DB_PASSWORD', '65ab1614'),
             'unix_socket' => env('DB_SOCKET', ''),
