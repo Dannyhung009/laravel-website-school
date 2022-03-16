@@ -35,6 +35,7 @@ class BottomController extends Controller
 
         // dd($rows);
 
+        
         $view = [
             'header' => '頁尾版權文字管理',
             'module' => 'Bottom',

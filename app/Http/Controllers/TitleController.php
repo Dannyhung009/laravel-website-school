@@ -72,11 +72,14 @@ class TitleController extends Controller
         
         // dd($rows);
 
+        $useTitle=Title::where("sh",1)->firtst();
+
         $view = [
             'header' => '網站標題管理',
             'module' => 'Title',
             'cols'=>$cols,
             'rows' => $rows,
+            'useTitle'=>$useTitle,
         ];
         return view('backend.module', $view);
     }
