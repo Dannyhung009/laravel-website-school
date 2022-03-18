@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ad;
+use App\Models\Title;
 
 class AdController extends Controller
 {
@@ -55,15 +56,28 @@ class AdController extends Controller
         }
 
         // dd($rows);
+            // $useTitle=Title::where("sh",1)->first();
 
-        $view = [
 
-            'header' => '動態文字廣告管理',
-            'module' => 'Ad',
-            'cols' => $cols,
-            'rows' => $rows,
-        ];
-        return view('backend.module', $view);
+        //使用物件導向繼承controller.php
+        $this->view['header'] = '動態文字廣告管理';
+        $this->view['module'] = 'Ad';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;   
+        return view('backend.module', $this->view);
+
+
+
+        //舊版
+        // $view = [
+
+        //     'header' => '動態文字廣告管理',
+        //     'module' => 'Ad',
+        //     'cols' => $cols,
+        //     'rows' => $rows,
+        //     'useTitle'=>$this->useTitle,
+        // ];
+        // return view('backend.module', $view);
 
         // $all = Ad::all();
         // return view('backend.module', ['header' => '動態文字廣告管理', 'module' => 'Ad','rows'=>$all]);

@@ -2,7 +2,7 @@
 
 @section("main")
 <!-- 選單 -->
-@include("layouts.backend_siderbar")
+@include("layouts.backend_siderbar",["total"=>$total])
 <!-- 寫主內容 -->
 
 <div class="main col-md-9 p-0 d-flex flex-wrap align-items-start">
@@ -192,6 +192,8 @@
             type: 'patch',
             url: `/admin/{{ strtolower($module) }}/sh/${id}`,
             success: function() {
+
+                
                 if (_this.text() == "顯示") {
                     _this.text('隱藏')
                 } else {

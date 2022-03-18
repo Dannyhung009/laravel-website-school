@@ -61,13 +61,22 @@ class SubMenuController extends Controller
 
         // dd($rows);
 
-        $view = [
-            'header' => '次選單管理',
-            'module' => 'SubMenu',
-            'cols' => $cols,
-            'rows' => $rows,
-            'menu_id'=>$menu_id,
-        ];
+        //使用物件導向繼承controller.php
+        $this->view['header'] = '次選單管理';
+        $this->view['module'] = 'SubMenu';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;
+        $this->view['menu_id']=$menu_id;   
+        return view('backend.module', $this->view);
+
+
+        // $view = [
+        //     'header' => '次選單管理',
+        //     'module' => 'SubMenu',
+        //     'cols' => $cols,
+        //     'rows' => $rows,
+        //     'menu_id'=>$menu_id,
+        // ];
         return view('backend.module', $view);
     }
 

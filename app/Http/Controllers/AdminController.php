@@ -60,13 +60,22 @@ class AdminController extends Controller
 
         // dd($rows);
 
-        $view = [
-            'header' => '網站管理者管理',
-            'module' => 'Admin',
-            'cols' => $cols,
-            'rows' => $rows,
-        ];
-        return view('backend.module', $view);
+        //使用物件導向繼承controller.php
+        $this->view['header'] = '網站管理者管理';
+        $this->view['module'] = 'Admin';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;   
+        return view('backend.module', $this->view);
+
+
+        // $view = [
+        //     'header' => '網站管理者管理',
+        //     'module' => 'Admin',
+        //     'cols' => $cols,
+        //     'rows' => $rows,
+        //     'useTitle'=>$this->useTitle,
+        // ];
+        // return view('backend.module', $view);
     }
 
     /**

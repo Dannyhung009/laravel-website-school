@@ -35,14 +35,21 @@ class BottomController extends Controller
 
         // dd($rows);
 
-        
-        $view = [
-            'header' => '頁尾版權文字管理',
-            'module' => 'Bottom',
-            'cols' => $cols,
-            'rows' => $rows,
-        ];
-        return view('backend.module', $view);
+        //使用物件導向繼承controller.php
+        $this->view['header'] = '頁尾版權文字管理';
+        $this->view['module'] = 'Bottom';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;   
+        return view('backend.module', $this->view);
+
+
+        // $view = [
+        //     'header' => '頁尾版權文字管理',
+        //     'module' => 'Bottom',
+        //     'cols' => $cols,
+        //     'rows' => $rows,
+        // ];
+        // return view('backend.module', $view);
     }
 
     /**

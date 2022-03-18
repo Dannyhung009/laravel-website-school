@@ -69,13 +69,21 @@ class MvimController extends Controller
 
         // dd($rows);
 
-        $view = [
-            'header' => '動畫圖片管理',
-            'module' => 'Mvim',
-            'cols' => $cols,
-            'rows' => $rows,
-        ];
-        return view('backend.module', $view);
+        //使用物件導向繼承controller.php
+        $this->view['header'] = '動畫圖片管理';
+        $this->view['module'] = 'Mvim';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;   
+        return view('backend.module', $this->view);
+
+
+        // $view = [
+        //     'header' => '動畫圖片管理',
+        //     'module' => 'Mvim',
+        //     'cols' => $cols,
+        //     'rows' => $rows,
+        // ];
+        // return view('backend.module', $view);
     }
 
     /**

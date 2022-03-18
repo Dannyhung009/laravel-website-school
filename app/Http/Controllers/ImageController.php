@@ -68,13 +68,21 @@ class ImageController extends Controller
 
         // dd($rows);
 
-        $view = [
-            'header' => '校園映像圖片管理',
-            'module' => 'Image',
-            'cols' => $cols,
-            'rows' => $rows,
-        ];
-        return view('backend.module', $view);
+        //使用物件導向繼承controller.php
+        $this->view['header'] = '校園映像圖片管理';
+        $this->view['module'] = 'Image';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;   
+        return view('backend.module', $this->view);
+
+
+        // $view = [
+        //     'header' => '校園映像圖片管理',
+        //     'module' => 'Image',
+        //     'cols' => $cols,
+        //     'rows' => $rows,
+        // ];
+        // return view('backend.module', $view);
     }
 
     /**

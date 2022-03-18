@@ -15,6 +15,8 @@ class TitleController extends Controller
     public function index()
     {
         //
+        // dd($this->view);
+
         $all = Title::all();
         // dd($all);
         $cols = ['網站標題', '替代文字', '顯示', '刪除', '操作'];
@@ -72,16 +74,34 @@ class TitleController extends Controller
         
         // dd($rows);
 
-        $useTitle=Title::where("sh",1)->firtst();
 
-        $view = [
-            'header' => '網站標題管理',
-            'module' => 'Title',
-            'cols'=>$cols,
-            'rows' => $rows,
-            'useTitle'=>$useTitle,
-        ];
-        return view('backend.module', $view);
+        // $useTitle=Title::where("sh",1)->first();
+
+        //取出的資料為collection，是物件object
+
+        //使用物件導向繼承controller.php
+        $this->view['header'] = '網站標題管理';
+        $this->view['module'] = 'Title';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;
+        // $this->view['rows'] = $rows;
+        
+        
+
+        // dd($this->view);
+        return view('backend.module', $this->view);
+        
+        
+                
+        //舊版
+        // $view = [
+        //     'header' => '網站標題管理',
+        //     'module' => 'Title',
+        //     'cols'=>$cols,
+        //     'rows' => $rows,
+        //     'useTitle'=>$this->useTitle,
+        // ];
+        // return view('backend.module', $view);
     }
 
     /**
