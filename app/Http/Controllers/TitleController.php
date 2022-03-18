@@ -267,6 +267,7 @@ class TitleController extends Controller
 
             $title->save();
             $findDefault->save();
+            $img=$findDefault->img;
         } else {
             $title->sh = 1;
             $findShow = Title::where("sh", 1)->first();
@@ -274,7 +275,11 @@ class TitleController extends Controller
 
             $title->save();
             $findShow->save();
+            $img=$title->img;
         }
+
+        return $img;
+
         // $title->save();
         // $title->save();
 

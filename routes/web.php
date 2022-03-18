@@ -11,6 +11,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubMenuController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ use App\Http\Controllers\SubMenuController;
 */
 
 
-Route::view('/', 'home');
+Route::get('/', [HomeController::class, 'index']);
 Route::redirect('/admin', '/admin/title');
 Route::prefix('admin')->group(function () {
 
