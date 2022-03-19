@@ -80,12 +80,12 @@ class TitleController extends Controller
         //取出的資料為collection，是物件object
 
         //使用物件導向繼承controller.php
-        // $this->view['header'] = '網站標題管理';
-        // $this->view['module'] = 'Title';
-        // $this->view['cols'] = $cols;
-        // $this->view['rows'] = $rows;
-        // dd($this->view);
-        // return view('backend.module', $this->view);
+        $this->view['header'] = '網站標題管理';
+        $this->view['module'] = 'Title';
+        $this->view['cols'] = $cols;
+        $this->view['rows'] = $rows;
+        dd($this->view);
+        return view('backend.module', $this->view);
         
         
 
@@ -102,15 +102,15 @@ class TitleController extends Controller
 
         //舊版2
         //自訂變數useTitle傳到view層->layouts.layout->title
-        $useTitle=Title::where("sh",1)->first();
-        $view = [
-            'header' => '網站標題管理',
-            'module' => 'Title',
-            'cols'=>$cols,
-            'rows' => $rows,
-            'title'=>$useTitle,
-        ];
-        return view('backend.module', $view);
+        // $useTitle=Title::where("sh",1)->first();
+        // $view = [
+        //     'header' => '網站標題管理',
+        //     'module' => 'Title',
+        //     'cols'=>$cols,
+        //     'rows' => $rows,
+        //     'title'=>$useTitle,
+        // ];
+        // return view('backend.module', $view);
     }
 
     /**

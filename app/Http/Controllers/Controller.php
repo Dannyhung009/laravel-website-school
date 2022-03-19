@@ -19,9 +19,9 @@ class Controller extends BaseController
 
     protected $view=[];
 
-    // public function __construct(){
-    //     $this->view['title']=Title::where('sh',1)->first();
-    //     $this->view['total']=Total::first()->total;
-    //     $this->view['bottom']=Bottom::first()->bottom;
-    // }
+    public function __construct(){
+        $this->view['title']=Title::where('sh',1)->first();
+        $this->view['total']=Total::first()->total;
+        $this->view['bottom']=Bottom::first()->bottom;
+    }
 }
