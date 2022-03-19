@@ -7,6 +7,13 @@ use App\Models\News;
 
 class NewsController extends Controller
 {
+    public function list(){
+        return view('news',$this->view);
+
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
