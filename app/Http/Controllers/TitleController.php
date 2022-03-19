@@ -75,7 +75,7 @@ class TitleController extends Controller
         // dd($rows);
 
 
-        // $useTitle=Title::where("sh",1)->first();
+      
 
         //取出的資料為collection，是物件object
 
@@ -90,13 +90,25 @@ class TitleController extends Controller
         
 
                 
-        //舊版
+        //舊版1
+        // $view = [
+        //     'header' => '網站標題管理',
+        //     'module' => 'Title',
+        //     'cols'=>$cols,
+        //     'rows' => $rows,
+        //     'useTitle'=>$this->useTitle,
+        // ];
+        // return view('backend.module', $view);
+
+        //舊版2
+        //自訂變數useTitle傳到view層->layouts.layout->title
+        $useTitle=Title::where("sh",1)->first();
         $view = [
             'header' => '網站標題管理',
             'module' => 'Title',
             'cols'=>$cols,
             'rows' => $rows,
-            'useTitle'=>$this->useTitle,
+            'title'=>$useTitle,
         ];
         return view('backend.module', $view);
     }
