@@ -84,7 +84,7 @@ class TitleController extends Controller
         $this->view['module'] = 'Title';
         $this->view['cols'] = $cols;
         $this->view['rows'] = $rows;
-        dd($this->view);
+        // dd($this->view);
         return view('backend.module', $this->view);
         
         
