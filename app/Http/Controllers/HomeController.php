@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Menu;
+use App\Models\SubMenu;
 
 class HomeController extends Controller
 {
@@ -14,6 +16,13 @@ class HomeController extends Controller
     public function index()
     {
         //
+        $menus=Menu::where("sh",1)->get();
+
+        foreach($menus as $menu){
+            $subs=SubMenu::where("menu_id",$menu->id)->get();
+            dd($subs);
+        }
+
         return view('main',$this->view);
     }
 
