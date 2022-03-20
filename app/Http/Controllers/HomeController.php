@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Models\SubMenu;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -16,14 +15,21 @@ class HomeController extends Controller
     public function index()
     {
         //
-        $menus=Menu::where("sh",1)->get();
+        $menus = Menu::where("sh", 1)->get();
 
-        foreach($menus as $menu){
-            $subs=SubMenu::where("menu_id",$menu->id)->get();
-            dd($subs);
+        foreach ($menus as $key => $menu) {
+
+            $subs = $menu->subs;
+            //原本SQL builder語法
+            // $subs=SubMenu::where("menu_id",$menu->id)->get();
+            // dd($subs);
+            $menu->subs = $subs;
+            // dd($menu);
+            $menus[$key] = $menu;
         }
-
-        return view('main',$this->view);
+        // dd($menus);
+        $this->view['menus'] = $menus;
+        return view('main', $this->view);
     }
 
     /**
