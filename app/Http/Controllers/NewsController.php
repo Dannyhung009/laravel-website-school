@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\News;
+use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function list(){
-        return view('news',$this->view);
+    function list() {
+        return view('news', $this->view);
 
     }
-
-
 
     /**
      * Display a listing of the resource.
@@ -24,7 +22,7 @@ class NewsController extends Controller
         //
         $all = News::all();
         // dd($all);
-        $cols = ['最新消息內容', '顯示', '刪除', '編輯',];
+        $cols = ['最新消息內容', '顯示', '刪除', '編輯'];
         $rows = [];
 
         foreach ($all as $a) {
@@ -43,7 +41,6 @@ class NewsController extends Controller
                     'id' => $a->id,
                     'text' => ($a->sh == 1) ? '顯示' : '隱藏',
 
-
                 ],
                 [
                     'tag' => 'button',
@@ -52,7 +49,6 @@ class NewsController extends Controller
                     'action' => 'delete',
                     'id' => $a->id,
                     'text' => '刪除',
-
 
                 ],
                 [
@@ -75,7 +71,7 @@ class NewsController extends Controller
         $this->view['header'] = '最新消息內容管理';
         $this->view['module'] = 'News';
         $this->view['cols'] = $cols;
-        $this->view['rows'] = $rows;   
+        $this->view['rows'] = $rows;
         return view('backend.module', $this->view);
 
         // $view = [
@@ -133,7 +129,6 @@ class NewsController extends Controller
         $news->save();
         return redirect('/admin/news');
 
-
         // if ($request->hasFile('img') && $request->file('img')->isValid()) {
         //     $news = new News;
         //     $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
@@ -143,7 +138,6 @@ class NewsController extends Controller
         //     $news->save();
         // }
         // return redirect('/admin/news');
-
 
         //第一版
         // dd($request);
@@ -157,8 +151,6 @@ class NewsController extends Controller
         //     $news->text=$text;
 
         // }
-
-
 
         // return "儲存新資料";
     }
@@ -190,13 +182,12 @@ class NewsController extends Controller
             'modal_header' => "編輯最新消息內容",
             'modal_body' => [
 
-
                 [
                     'label' => '最新消息內容',
                     'tag' => 'textarea',
                     'style' => 'width:200px;height:100px;',
                     'name' => 'text',
-                    'value' => $news->text
+                    'value' => $news->text,
                 ],
                 // [
                 //     'label' => '最新消息內容',
@@ -232,10 +223,6 @@ class NewsController extends Controller
             $news->text = $request->input('text');
         }
 
-
-
-
-
         $news->save();
         // $news=News::where("id",$id)->get();
 
@@ -245,7 +232,7 @@ class NewsController extends Controller
 
     /**
      * 改變資料的顯示狀態
-     * 
+     *
      */
     public function display($id)
     {
@@ -268,10 +255,7 @@ class NewsController extends Controller
         // $news->save();
         // $news->save();
 
-
-
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -281,7 +265,6 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-
 
         //
         $news = News::destroy($id);
