@@ -98,7 +98,7 @@ $.ajaxSetup({
 });
 $("#addRow").on("click", function() {
 
-  @isset($menu_id)
+  @if(isset($menu_id))
   $.get("/modals/add{{ $module }}/{{ $menu_id }}", function(modal) {
     $("#modal").html(modal)
     $("#baseModal").modal("show")
@@ -121,6 +121,7 @@ $("#addRow").on("click", function() {
     })
   })
   @endif
+  
 })
 
 // $("#addRow").on("click", function() {

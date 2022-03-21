@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Image;
+use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
@@ -40,7 +40,6 @@ class ImageController extends Controller
                     'id' => $a->id,
                     'text' => ($a->sh == 1) ? '顯示' : '隱藏',
 
-
                 ],
                 [
                     'tag' => 'button',
@@ -49,7 +48,6 @@ class ImageController extends Controller
                     'action' => 'delete',
                     'id' => $a->id,
                     'text' => '刪除',
-
 
                 ],
                 [
@@ -72,9 +70,8 @@ class ImageController extends Controller
         $this->view['header'] = '校園映像圖片管理';
         $this->view['module'] = 'Image';
         $this->view['cols'] = $cols;
-        $this->view['rows'] = $rows;   
+        $this->view['rows'] = $rows;
         return view('backend.module', $this->view);
-
 
         // $view = [
         //     'header' => '校園映像圖片管理',
@@ -101,7 +98,7 @@ class ImageController extends Controller
                     'label' => '校園映像圖片管理',
                     'tag' => 'input',
                     'type' => 'file',
-                    'name' => 'img'
+                    'name' => 'img',
                 ],
 
             ],
@@ -118,14 +115,17 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         //
+
         if ($request->hasFile('img') && $request->file('img')->isValid()) {
             $image = new Image;
+
             $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
 
             $image->img = $request->file('img')->getClientOriginalName();
             // $title->text = $request->input('text');
             $image->save();
         }
+
         return redirect('/admin/image');
 
         //第一版
@@ -140,8 +140,6 @@ class ImageController extends Controller
         //     $title->text=$text;
 
         // }
-
-
 
         // return "儲存新資料";
     }
@@ -176,13 +174,13 @@ class ImageController extends Controller
                     'label' => '目前標題圖片',
                     'tag' => 'img',
                     'src' => $image->img,
-                    'style' => 'width:100px;height:68px'
+                    'style' => 'width:100px;height:68px',
                 ],
                 [
                     'label' => '更換標題區圖片',
                     'tag' => 'input',
                     'type' => 'file',
-                    'name' => 'img'
+                    'name' => 'img',
                 ],
 
             ],
@@ -209,12 +207,12 @@ class ImageController extends Controller
             $image->save();
         }
         return redirect('admin/image');
-        
+
     }
 
     /**
      * 改變資料的顯示狀態
-     * 
+     *
      */
     public function display($id)
     {
@@ -222,7 +220,6 @@ class ImageController extends Controller
         $image->sh = ($image->sh + 1) % 2;
         $image->save();
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -232,7 +229,6 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-
 
         //
         Image::destroy($id);

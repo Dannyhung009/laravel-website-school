@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu;
 use Illuminate\Http\Request;
+use App\Models\Menu;
+use App\Models\SubMenu;
+use App\Models\Image;
+
 
 class HomeController extends Controller
 {
@@ -16,6 +19,7 @@ class HomeController extends Controller
     {
         //
         $menus = Menu::where("sh", 1)->get();
+        $images=Image::where("sh",1)->get();
 
         foreach ($menus as $key => $menu) {
 
@@ -29,6 +33,7 @@ class HomeController extends Controller
         }
         // dd($menus);
         $this->view['menus'] = $menus;
+        $this->view['images']= $images;
         return view('main', $this->view);
     }
 
