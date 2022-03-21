@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Image;
 use App\Models\Menu;
 use App\Models\SubMenu;
-use App\Models\Image;
-
+use App\Models\Ad;
+use App\Models\Mvim;
+use App\Models\News;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -18,8 +20,26 @@ class HomeController extends Controller
     public function index()
     {
         //
+        $this->sideBar();
+
+        $ads=implode("　",AD::where("sh",1)->get()->pluck('text')->toArray()) ;
+        // dd($ads);
+        $this->view['ads']=$ads;
+
+        //原生php做法
+        // foreach($ads as $ad){
+
+        // }
+        
+
+
+        return view('main', $this->view);
+    }
+
+    protected function sideBar()
+    {
         $menus = Menu::where("sh", 1)->get();
-        $images=Image::where("sh",1)->get();
+        $images = Image::where("sh", 1)->get();
 
         foreach ($menus as $key => $menu) {
 
@@ -33,8 +53,8 @@ class HomeController extends Controller
         }
         // dd($menus);
         $this->view['menus'] = $menus;
-        $this->view['images']= $images;
-        return view('main', $this->view);
+        $this->view['images'] = $images;
+
     }
 
     /**

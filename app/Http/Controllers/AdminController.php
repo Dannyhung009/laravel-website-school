@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Admin;
+use Illuminate\Http\Request;
 
 class AdminController extends HomeController
 {
-    public function showLoginForm(){
-        parent::index();
-        return view('login',$this->view);
+    public function showLoginForm()
+    {
+        parent::sideBar();
+        return view('login', $this->view);
     }
-
 
     /**
      * Display a listing of the resource.
@@ -48,7 +48,6 @@ class AdminController extends HomeController
                     'id' => $a->id,
                     'text' => '刪除',
 
-
                 ],
                 [
                     'tag' => 'button',
@@ -70,9 +69,8 @@ class AdminController extends HomeController
         $this->view['header'] = '網站管理者管理';
         $this->view['module'] = 'Admin';
         $this->view['cols'] = $cols;
-        $this->view['rows'] = $rows;   
+        $this->view['rows'] = $rows;
         return view('backend.module', $this->view);
-
 
         // $view = [
         //     'header' => '網站管理者管理',
@@ -100,19 +98,19 @@ class AdminController extends HomeController
                     'label' => '帳號',
                     'tag' => 'input',
                     'type' => 'text',
-                    'name' => 'acc'
+                    'name' => 'acc',
                 ],
                 [
                     'label' => '密碼',
                     'tag' => 'input',
                     'type' => 'password',
-                    'name' => 'pw'
+                    'name' => 'pw',
                 ],
                 [
                     'label' => '確認密碼',
                     'tag' => 'input',
                     'type' => 'text',
-                    'name' => 'pw2'
+                    'name' => 'pw2',
                 ],
             ],
         ];
@@ -203,11 +201,6 @@ class AdminController extends HomeController
             $admin->save();
         }
 
-
-
-
-
-
         // $admin=Admin::where("id",$id)->get();
 
         return redirect('admin/admin');
@@ -216,7 +209,7 @@ class AdminController extends HomeController
 
     /**
      * 改變資料的顯示狀態
-     * 
+     *
      */
     public function display($id)
     {
@@ -239,10 +232,7 @@ class AdminController extends HomeController
         // $admin->save();
         // $admin->save();
 
-
-
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -252,7 +242,6 @@ class AdminController extends HomeController
      */
     public function destroy($id)
     {
-
 
         //
         $admin = Admin::destroy($id);
