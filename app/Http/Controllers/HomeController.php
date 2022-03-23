@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ad;
 use App\Models\Image;
 use App\Models\Menu;
-use App\Models\SubMenu;
-use App\Models\Ad;
 use App\Models\Mvim;
 use App\Models\News;
 use Illuminate\Http\Request;
@@ -22,24 +21,36 @@ class HomeController extends Controller
         //
         $this->sideBar();
 
-        $ads=implode("　",AD::where("sh",1)->get()->pluck('text')->toArray()) ;
-        // dd($ads);
-        $this->view['ads']=$ads;
+        // $ads = implode("　", AD::where("sh", 1)->get()->pluck('text')->toArray());
+        $mvims = Mvim::where("sh", 1)->get();
+        $news=News::where("sh",1)->get()->filter(function($val,$idx){
+            if($idx>4){
+                $this->view['more']='/news';
+                // return null;
+            }else{
+                return $val;
+            }
+        });
+
+        // dd($news,$this->view);
+
+        // $this->view['ads'] = $ads;
+        $this->view['mvims'] = $mvims;
+        $this->view['news'] = $news;
 
         //原生php做法
         // foreach($ads as $ad){
 
         // }
-        
-
 
         return view('main', $this->view);
     }
 
-    protected function sideBar()
-    {
+    protected function sideBar(){
+    
         $menus = Menu::where("sh", 1)->get();
         $images = Image::where("sh", 1)->get();
+        $ads = implode("　", AD::where("sh", 1)->get()->pluck('text')->toArray());
 
         foreach ($menus as $key => $menu) {
 
@@ -52,6 +63,7 @@ class HomeController extends Controller
             $menus[$key] = $menu;
         }
         // dd($menus);
+        $this->view['ads'] = $ads;
         $this->view['menus'] = $menus;
         $this->view['images'] = $images;
 

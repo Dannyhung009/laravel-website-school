@@ -34,7 +34,9 @@
   
 
   <div class="main col-md-6">
+    @isset($ads)
     <marquee behavior="" direction="">{{$ads}}</marquee>
+    @endisset
     @yield('center')
   </div>
 
@@ -100,5 +102,28 @@
       })
 
     })
+
+    $(".mv").eq(0).show()
+    let mvNum=$(".mv").length;
+    let now=0;
+    setInterval(() => {
+      $(".mv").hide();
+      ++now;
+      $(".mv").eq(now%mvNum).show();
+
+
+    }, 3000);
+
+    $(".new").hover(
+      function(){
+        $(this).children('div').show()
+
+
+      },function(){
+        $(this).children('div').hide()
+      }
+    )
+
+
   </script>
 @endsection

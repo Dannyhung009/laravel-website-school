@@ -1,4 +1,4 @@
-.container {
+    .container {
     max-width: 1024px;
     max-height: 768px;
     margin: 10px auto;
@@ -37,4 +37,13 @@
     position: absolute;
     bottom: 50px;
     text-align: center;
+}
+
+.mv img {
+    width: 90%;
+    height: 250px;
+}
+
+.mv {
+    display: none;
 }
