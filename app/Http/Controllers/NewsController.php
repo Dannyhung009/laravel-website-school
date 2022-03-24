@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class NewsController extends HomeController
 {
     function list() {
-        parent::index();
+        parent::sideBar();
+        // parent::index();
+        $this->view['news']=News::where("sh",1)->paginate(5);
+        // $this->view['news']=News::where("sh",1)->get();
         return view('news', $this->view);
 
     }
@@ -21,7 +24,8 @@ class NewsController extends HomeController
     public function index()
     {
         //
-        $all = News::all();
+        $all = News::paginate(4);
+        // $all = News::all();
         // dd($all);
         $cols = ['最新消息內容', '顯示', '刪除', '編輯'];
         $rows = [];
@@ -73,6 +77,7 @@ class NewsController extends HomeController
         $this->view['module'] = 'News';
         $this->view['cols'] = $cols;
         $this->view['rows'] = $rows;
+        $this->view['paginate']=$all->links();
         return view('backend.module', $this->view);
 
         // $view = [

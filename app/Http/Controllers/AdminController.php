@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 
 class AdminController extends HomeController
@@ -11,6 +13,35 @@ class AdminController extends HomeController
     {
         parent::sideBar();
         return view('login', $this->view);
+    }
+
+    public function login(Request $request){
+
+        $user=[
+            'acc'=>$request->input('acc'),
+            'pw'=>$request->input('pw'),
+        ];
+
+        if(Auth::attempt($user)){
+            return redirect('/admin');
+        }else{
+            return redirect('/login')->with('error','帳號或密碼錯誤');
+            
+        }
+
+        /* $acc=$request->input('acc');
+        $pw=$request->input('pw');
+        // dd($acc,$pw);
+        $check=Admin::where('acc',$acc)->where('pw',$pw)->count();
+        // dd($check);
+        if($check){
+            return redirect('/admin');
+
+        }else{
+            return redirect('/login')->with('error','帳號或密碼錯誤');
+        } */
+
+        
     }
 
     /**

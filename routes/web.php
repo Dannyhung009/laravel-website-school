@@ -28,6 +28,8 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/news', [NewsController::class, 'list']);
 Route::get('/login', [AdminController::class, 'showLoginForm']);
+Route::get('/login', [AdminController::class, 'showLoginForm']);
+Route::post('/login', [AdminController::class, 'login']);
 
 
 Route::redirect('/admin', '/admin/title');

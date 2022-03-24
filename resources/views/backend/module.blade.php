@@ -84,6 +84,16 @@
 
     </table>
 
+    @switch($module)
+    
+    @case('Image')
+    {!! $paginate !!}
+    @break
+    @case('News')
+    {!! $paginate !!}
+    @break
+
+    @endswitch
   </div>
 </div>
 @endsection
