@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Menu;
 use App\Models\Mvim;
 use App\Models\News;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,11 +24,11 @@ class HomeController extends Controller
 
         // $ads = implode("　", AD::where("sh", 1)->get()->pluck('text')->toArray());
         $mvims = Mvim::where("sh", 1)->get();
-        $news=News::where("sh",1)->get()->filter(function($val,$idx){
-            if($idx>4){
-                $this->view['more']='/news';
+        $news = News::where("sh", 1)->get()->filter(function ($val, $idx) {
+            if ($idx > 4) {
+                $this->view['more'] = '/news';
                 // return null;
-            }else{
+            } else {
                 return $val;
             }
         });
@@ -46,8 +47,9 @@ class HomeController extends Controller
         return view('main', $this->view);
     }
 
-    protected function sideBar(){
-    
+    protected function sideBar()
+    {
+
         $menus = Menu::where("sh", 1)->get();
         $images = Image::where("sh", 1)->get();
         $ads = implode("　", AD::where("sh", 1)->get()->pluck('text')->toArray());
@@ -63,10 +65,15 @@ class HomeController extends Controller
             $menus[$key] = $menu;
         }
         // dd($menus);
-        $this->view['ads'] = $ads;
+
+        if (Auth::user()){
+            $this->view['user']=Auth::user();
+            
+        }
+
+            $this->view['ads'] = $ads;
         $this->view['menus'] = $menus;
         $this->view['images'] = $images;
-
     }
 
     /**

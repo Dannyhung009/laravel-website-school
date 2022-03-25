@@ -29,11 +29,12 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/news', [NewsController::class, 'list']);
 Route::get('/login', [AdminController::class, 'showLoginForm']);
 Route::get('/login', [AdminController::class, 'showLoginForm']);
-Route::post('/login', [AdminController::class, 'login']);
+Route::post('/login', [AdminController::class, 'login'])->name('login');
+Route::get('/logout', [AdminController::class, 'logout']);
 
 
 Route::redirect('/admin', '/admin/title');
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth') ->group(function () {
 
     //get
     Route::get('/title', [TitleController::class, 'index']);

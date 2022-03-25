@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
-
+// use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class AdminController extends HomeController
@@ -15,18 +16,24 @@ class AdminController extends HomeController
         return view('login', $this->view);
     }
 
-    public function login(Request $request){
+    public function logout(Request $request){
+        Auth::logout();
 
-        $user=[
-            'acc'=>$request->input('acc'),
-            'pw'=>$request->input('pw'),
+        return redirect("/login");
+    }
+
+    public function login(Request $request)
+    {
+
+        $user = [
+            'acc' => $request->input('acc'),
+            'password' => $request->input('pw'),
         ];
 
-        if(Auth::attempt($user)){
+        if (Auth::attempt($user)) {
             return redirect('/admin');
-        }else{
-            return redirect('/login')->with('error','帳號或密碼錯誤');
-            
+        } else {
+            return redirect('/login')->with('error', '帳號或密碼錯誤');
         }
 
         /* $acc=$request->input('acc');
@@ -40,8 +47,6 @@ class AdminController extends HomeController
         }else{
             return redirect('/login')->with('error','帳號或密碼錯誤');
         } */
-
-        
     }
 
     /**
@@ -67,6 +72,7 @@ class AdminController extends HomeController
                 ],
                 [
                     'tag' => 'text',
+                    // 'tag' => 'password',
                     'text' => $a->pw,
 
                 ],
@@ -140,7 +146,7 @@ class AdminController extends HomeController
                 [
                     'label' => '確認密碼',
                     'tag' => 'input',
-                    'type' => 'text',
+                    'type' => 'password',
                     'name' => 'pw2',
                 ],
             ],
@@ -159,7 +165,10 @@ class AdminController extends HomeController
         //
         $admin = new Admin;
         $admin->acc = $request->input('acc');
-        $admin->pw = $request->input('pw');
+        
+        $admin->pw = Hash::make($request->input('pw'));
+        // $admin->pw = $request->input('pw');
+
         $admin->save();
 
         return redirect('/admin/admin');
@@ -220,6 +229,17 @@ class AdminController extends HomeController
     {
         //
         $admin = Admin::find($id);
+        if ($admin->pw != $request->input('pw')) {
+            $admin->pw = Hash::make($request->input('pw'));
+            // $admin->pw = $request->input('pw');
+            $admin->save();
+        }
+
+        return redirect('admin/admin');
+
+
+
+        // $admin = Admin::find($id);
         // if ($request->hasFile('img') && $request->file('img')->isValid()) {
 
         //     $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
@@ -227,15 +247,11 @@ class AdminController extends HomeController
         //     $admin->img = $request->file('img')->getClientOriginalName();
         // }
 
-        if ($admin->pw != $request->input('text')) {
-            $admin->pw = $request->input('text');
-            $admin->save();
-        }
-
         // $admin=Admin::where("id",$id)->get();
-
-        return redirect('admin/admin');
         // return redirect('/admin/admin');
+
+
+        
     }
 
     /**
