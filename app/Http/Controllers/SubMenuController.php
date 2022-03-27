@@ -77,7 +77,7 @@ class SubMenuController extends Controller
         //     'rows' => $rows,
         //     'menu_id'=>$menu_id,
         // ];
-        return view('backend.module', $view);
+        // return view('backend.module', $view);
     }
 
     /**

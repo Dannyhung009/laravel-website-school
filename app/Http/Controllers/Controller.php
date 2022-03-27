@@ -17,11 +17,20 @@ class Controller extends BaseController
 
     // protected $useTitle='01B01.jpg';
 
-    protected $view=[];
+    protected $view = [];
 
-    public function __construct(){
-        $this->view['title']=Title::where('sh',1)->first();
-        $this->view['total']=Total::first()->total;
-        $this->view['bottom']=Bottom::first()->bottom;
+    public function __construct()
+    {
+        $this->view['title'] = Title::where('sh', 1)->first();
+        $this->view['total'] = Total::first()->total;
+        if (!session()->has('visiter')) {
+            $total = Total::first();
+            $total->total++;
+            $total->save();
+            $this->view['total'] = $total->total;
+            // session(['visiter'=>$total->total]);
+            session()->put('visiter', $total->total);
+        }
+        $this->view['bottom'] = Bottom::first()->bottom;
     }
 }

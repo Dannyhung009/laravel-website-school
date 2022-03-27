@@ -9,6 +9,7 @@ use App\Models\Mvim;
 use App\Models\News;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+// use App\Models\Total;
 
 class HomeController extends Controller
 {
@@ -66,12 +67,21 @@ class HomeController extends Controller
         }
         // dd($menus);
 
-        if (Auth::user()){
-            $this->view['user']=Auth::user();
-            
+        if (Auth::user()) {
+            $this->view['user'] = Auth::user();
         }
 
-            $this->view['ads'] = $ads;
+        // if(!session()->has('visiter')){
+        //     $total=Total::first();
+        //     $total->total++;
+        //     $total->save();
+        //     $this->view['total']=$total->total;
+        //     // session(['visiter'=>$total->total]);
+        //     session()->put('visiter',$total->total);
+        // }
+
+
+        $this->view['ads'] = $ads;
         $this->view['menus'] = $menus;
         $this->view['images'] = $images;
     }
