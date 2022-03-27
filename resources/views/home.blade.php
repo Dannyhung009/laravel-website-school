@@ -3,7 +3,7 @@
 @section('main')
   <!-- 寫主內容 -->
   <div class="menu col-md-3">
-    <div class="text-center py-2 border-bottom my-1">主選單區</div>
+    <div class="text-center py-2 border-bottom my-1">主選單區@{{ hello }}</div>
     @isset($menus)
       <ul class="list-group">
         @foreach ($menus as $menu)
@@ -28,26 +28,27 @@
       </ul>
     @endisset
     <div class="viewer">
-        進站總人數：{{ $total }}
+      進站總人數：{{ $total }}
     </div>
   </div>
-  
+
 
   <div class="main col-md-6">
     @isset($ads)
-    <marquee behavior="" direction="">{{$ads}}</marquee>
+      <marquee behavior="" direction="">@{{ adstr }}</marquee>
+      {{-- <marquee behavior="" direction="">{{$ads}}</marquee> --}}
     @endisset
     @yield('center')
     {{-- 中間區塊 --}}
   </div>
 
-  
+
   <div class="right col-md-3">
     @auth
-    <a href="/admin" class="button btn btn-success py-3 w-100 my-2">返回管理({{ $user->acc }})</a>
+      <a href="/admin" class="button btn btn-success py-3 w-100 my-2">返回管理({{ $user->acc }})</a>
     @endauth
     @guest
-    <a href="/login" class="button btn btn-primary py-3 w-100 my-2">管理登入</a>
+      <a href="/login" class="button btn btn-primary py-3 w-100 my-2">管理登入</a>
     @endguest
     <div class="text-center py-2 border-bottom my-1">主選單區</div>
     <div class="up"></div>
@@ -109,26 +110,44 @@
     })
 
     $(".mv").eq(0).show()
-    let mvNum=$(".mv").length;
-    let now=0;
+    let mvNum = $(".mv").length;
+    let now = 0;
     setInterval(() => {
       $(".mv").hide();
       ++now;
-      $(".mv").eq(now%mvNum).show();
+      $(".mv").eq(now % mvNum).show();
 
 
     }, 3000);
 
     $(".new").hover(
-      function(){
+      function() {
         $(this).children('div').show()
 
 
-      },function(){
+      },
+      function() {
         $(this).children('div').hide()
       }
     )
 
+    const app = {
+      data() {
+        const hello = '哈囉';
+        const adstr = '{{ $ads }}';
+        const bottom = '{{ $bottom }}';
+        const titleImg= "{{ asset('storage/'. $title->img) }}";
+        const title='{{$title->text}}';
 
+
+
+
+        return {
+          hello,adstr,titleImg,title,bottom
+        }
+      }
+    }
+
+    Vue.createApp(app).mount('#app')
   </script>
 @endsection

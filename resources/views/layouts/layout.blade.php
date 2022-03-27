@@ -9,7 +9,7 @@
 
     <title>卓越科技大學校園資訊系統</title>
 
-    
+    <script src="https://unpkg.com/vue@3"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
@@ -19,18 +19,18 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body id="app">
     <div class="container">
         <div class="header w-100">
             @isset($title)
-            <a href="/" title="{{$title->text}}"> <img src="{{ asset('storage/'.$title->img) }}" alt="{{ $title->text }}" class="w-100"> </a>
+            <a href="/" title="@{{title}}"> <img v-bind:src="titleImg" alt="" class="w-100"> </a>
             @endisset
         </div>
         <div class="main d-flex" style="height:568px;">
             @yield("main")
         </div>
         <div class="footer w-100">
-            <div class="text-center" style="height:100px;line-height:100px;background:yellow">{{$bottom}}</div>
+            <div class="text-center" style="height:100px;line-height:100px;background:yellow">@{{$bottom}}</div>
         </div>
     </div>
     <div id="modal"></div>
