@@ -3,8 +3,9 @@
 @section('main')
   <!-- 寫主內容 -->
   <div class="menu col-md-3">
-    <div class="text-center py-2 border-bottom my-1">主選單區@{{ hello }}</div>
-    @isset($menus)
+    <div class="text-center py-2 border-bottom my-1">主選單區 @{{ hello }}</div>
+
+    {{-- @isset($menus)
       <ul class="list-group">
         @foreach ($menus as $menu)
           <li class="list-group-item list-group-item-action py-1 bg-warning position-relative menu">
@@ -21,14 +22,28 @@
             @endisset
 
           </li>
-          <!-- <li class="list-group-item list-group-item-action py-1"><a href="">a</a> </li> -->
-          <!-- <li class="list-group-item list-group-item-action py-1"><a href="">b</a> </li> -->
-          <!-- <li class="list-group-item list-group-item-action py-1"><a href="">c</a> </li> -->
         @endforeach
       </ul>
-    @endisset
+    @endisset --}}
+
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-action py-1 bg-warning position-relative
+       menu"
+        v-for="menu in menus" @mouseover='menu.show=true' @mouseleave='menu.show=false'>
+        <a v-bind:href="menu.href">@{{ menu.text }}</a>
+        <ul class="list-group position-absolute w-75" style="z-index:99;display: none;left:100px;top:25px"
+          v-if="menu.subs.length>0" v-show="menu.show">
+          <li class="lis-gruop-item list-group-item-action bg-success py-1" v-for="sub in menu.subs">
+            <a style="color: white" v-bind:href="sub.href">@{{ sub.text }}</a>
+          </li>
+        </ul>
+
+      </li>
+    </ul>
+
+
     <div class="viewer">
-      進站總人數：{{ $total }}
+      進站總人數：@{{ total }}
     </div>
   </div>
 
@@ -50,7 +65,7 @@
     @guest
       <a href="/login" class="button btn btn-primary py-3 w-100 my-2">管理登入</a>
     @endguest
-    <div class="text-center py-2 border-bottom my-1">主選單區</div>
+    <div class="text-center py-2 border-bottom my-1">校園映像區</div>
     <div class="up"></div>
     @isset($images)
       @foreach ($images as $img)
@@ -65,6 +80,35 @@
   <!-- 寫js -->
 
   <script>
+    const app = {
+      data() {
+        const hello = '哈囉';
+        const adstr = '{{ $ads }}';
+        const bottom = '{{ $bottom }}';
+        const titleImg = "{{ asset('storage/' . $title->img) }}";
+        const title = '{{ $title->text }}';
+        const total = {{ $total }};
+        // const menus='{!! $menus !!}';
+        const menus = JSON.parse('{!! $menus !!}');
+
+
+
+
+        return {
+          hello,
+          adstr,
+          titleImg,
+          title,
+          bottom,
+          total,
+          menus
+        }
+      }
+    }
+
+    Vue.createApp(app).mount('#app')
+
+
     $(".menu").hover(
       function() {
         $(this).children('.subs').show();
@@ -130,24 +174,5 @@
         $(this).children('div').hide()
       }
     )
-
-    const app = {
-      data() {
-        const hello = '哈囉';
-        const adstr = '{{ $ads }}';
-        const bottom = '{{ $bottom }}';
-        const titleImg= "{{ asset('storage/'. $title->img) }}";
-        const title='{{$title->text}}';
-
-
-
-
-        return {
-          hello,adstr,titleImg,title,bottom
-        }
-      }
-    }
-
-    Vue.createApp(app).mount('#app')
   </script>
 @endsection

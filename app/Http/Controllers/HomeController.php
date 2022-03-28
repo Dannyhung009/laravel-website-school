@@ -63,6 +63,7 @@ class HomeController extends Controller
             // dd($subs);
             $menu->subs = $subs;
             // dd($menu);
+            $menu->show=false;
             $menus[$key] = $menu;
         }
         // dd($menus);
