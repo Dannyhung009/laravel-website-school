@@ -66,13 +66,27 @@
       <a href="/login" class="button btn btn-primary py-3 w-100 my-2">管理登入</a>
     @endguest
     <div class="text-center py-2 border-bottom my-1">校園映像區</div>
-    <div class="up"></div>
-    @isset($images)
+    <div class="up" @click="switchImg('up')"></div>
+
+    <div class="img"  v-for="img in images" v-show="img.show"><img v-bind:src="img.img" alt=""></div>
+
+
+    {{-- <div class="img" v-for="img in images"><img src="{{ asset('storage/' . $img->img) }}" alt=""></div> --}}
+
+    {{-- @isset($images)
+      @foreach ($images as $img)
+        <div class="img"><img src="{{ $img->img }}" alt=""></div>
+      @endforeach
+    @endisset --}}
+
+        {{-- @isset($images)
       @foreach ($images as $img)
         <div class="img"><img src="{{ asset('storage/' . $img->img) }}" alt=""></div>
       @endforeach
-    @endisset
-    <div class="down"></div>
+    @endisset --}}
+
+
+    <div class="down" @click="switchImg('down')"></div>
   </div>
 @endsection
 
@@ -90,8 +104,8 @@
         const total = {{ $total }};
         // const menus='{!! $menus !!}';
         const menus = JSON.parse('{!! $menus !!}');
-
-
+        const images = JSON.parse('{!! $images !!}');
+        const ip=0;
 
 
         return {
@@ -101,9 +115,42 @@
           title,
           bottom,
           total,
-          menus
+          menus,
+          images,
+          ip
         }
-      }
+      },
+      methods:{
+        switchImg(type){
+          switch(type){
+            case 'up':
+              this.ip=(this.ip>0)?--this.ip:this.ip;
+
+            break;
+            case 'down':
+              this.ip=(this.ip<this.images.length-3)?++this.ip:this.ip;
+
+            break;
+          }
+
+          this.images.map((img,idx)=>{
+            if(idx>=this.ip && idx<=this.ip+2){
+              img.show=true;
+            }else{
+              img.show=false;
+            }
+            return img;
+          })
+
+
+        }
+
+      },
+      // mounted(){
+      //   this.switchImg('up')
+
+      // }
+
     }
 
     Vue.createApp(app).mount('#app')
@@ -119,39 +166,40 @@
       }
     )
 
-    //圖片顯示功能
-    let num = $(".img").length;
-    let p = 0;
+    // 圖片顯示功能
+    // let num = $(".img").length;
+    // let p = 0;
 
-    $(".img").each((idx, dom) => {
+    // $(".img").each((idx, dom) => {
 
 
-      if (idx < 3) {
-        $(dom).show()
-      }
-    })
+    //   if (idx < 3) {
+    //     $(dom).show()
+    //   }
+    // })
 
-    $(".up,.down").on("click", function() {
-      $(".img").hide();
-      // console.log($(this));
+    //圖片上移下移  
+    // $(".up,.down").on("click", function() {
+    //   $(".img").hide();
+    //   // console.log($(this));
 
-      switch ($(this).attr('class')) {
-        case 'up':
-          p = (p > 0) ? --p : p;
-          break;
-        case 'down':
-          p = (p < num - 3) ? ++p : p;
-          break;
+    //   switch ($(this).attr('class')) {
+    //     case 'up':
+    //       p = (p > 0) ? --p : p;
+    //       break;
+    //     case 'down':
+    //       p = (p < num - 3) ? ++p : p;
+    //       break;
 
-      }
+    //   }
 
-      $(".img").each((idx, dom) => {
-        if (idx >= p && idx <= p + 2) {
-          $(dom).show()
-        }
-      })
+    //   $(".img").each((idx, dom) => {
+    //     if (idx >= p && idx <= p + 2) {
+    //       $(dom).show()
+    //     }
+    //   })
 
-    })
+    // })
 
     $(".mv").eq(0).show()
     let mvNum = $(".mv").length;
