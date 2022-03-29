@@ -35,14 +35,30 @@ class HomeController extends Controller
         });
 
         // $mvims = Mvim::where("sh", 1)->get();
-        $news = News::where("sh", 1)->get()->filter(function ($val, $idx) {
+
+        $news = News::select("id","text")-> where("sh", 1)->get()->filter(function ($val, $idx) {
             if ($idx > 4) {
                 $this->view['more'] = '/news';
                 // return null;
             } else {
+                $val->short=mb_substr(str_replace("\r\n"," ", $val->text) ,0,25,"utf8")."...";
+                $val->text=str_replace("\r\n", " ", nl2br($val->text));
+                $val->show=false;
+
                 return $val;
             }
         });
+
+        // dd($news);
+
+        // $news = News::where("sh", 1)->get()->filter(function ($val, $idx) {
+        //     if ($idx > 4) {
+        //         $this->view['more'] = '/news';
+        //         // return null;
+        //     } else {
+        //         return $val;
+        //     }
+        // });
 
         // dd($news,$this->view);
 

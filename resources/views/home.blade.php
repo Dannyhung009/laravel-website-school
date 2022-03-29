@@ -105,8 +105,15 @@
         // const menus='{!! $menus !!}';
         const menus = JSON.parse('{!! $menus !!}');
         const images = JSON.parse('{!! $images !!}');
-        const mvims=JSON.parse('{!! $mvims !!}')
+        
         const ip=0;
+        const mvims=JSON.parse( '{!! $mvims !!}' );
+        const newss=JSON.parse( '{!! $news !!}' );
+        @isset($more)
+        const more='{{ $more }}';
+        @endisset
+
+
 
 
         return {
@@ -120,6 +127,10 @@
           images,
           ip,
           mvims,
+          newss,
+          @isset($more)
+          more 
+          @endisset,
         }
       },
       methods:{
