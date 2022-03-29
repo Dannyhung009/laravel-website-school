@@ -65,7 +65,7 @@
     @guest
       <a href="/login" class="button btn btn-primary py-3 w-100 my-2">管理登入</a>
     @endguest
-    <div class="text-center py-2 border-bottom my-1">校園映像區</div>
+    <div class="text-center py-2 border-bottom my-1 ">校園映像區</div>
     <div class="up" @click="switchImg('up')"></div>
 
     <div class="img"  v-for="img in images" v-show="img.show"><img v-bind:src="img.img" alt=""></div>
@@ -105,6 +105,7 @@
         // const menus='{!! $menus !!}';
         const menus = JSON.parse('{!! $menus !!}');
         const images = JSON.parse('{!! $images !!}');
+        const mvims=JSON.parse('{!! $mvims !!}')
         const ip=0;
 
 
@@ -117,7 +118,8 @@
           total,
           menus,
           images,
-          ip
+          ip,
+          mvims,
         }
       },
       methods:{
@@ -146,17 +148,47 @@
         }
 
       },
+      mounted() {
+        let m=1;
+        setInterval(() => {
+          this.mvims.map((mv,idx) =>{
+            mv.show=(idx==m)?true:false
+            return mv
+
+            // if(idx==m){
+            //   mv.show=true
+            // }else{
+            //   mv.show=false
+            // }
+            // return mv
+
+          })
+          m=(m+1)%this.mvims.length
+
+
+
+          //初學者版
+          // if(m>=4){
+          //   m=0
+          // }else{
+          //   m++
+          // }
+          
+        }, 3000);
+      },
+
+
+      //啟動按一下up
       // mounted(){
       //   this.switchImg('up')
-
       // }
 
     }
 
     Vue.createApp(app).mount('#app')
 
-
-    $(".menu").hover(
+    //jquery程式碼區塊
+    /* $(".menu").hover(
       function() {
         $(this).children('.subs').show();
       },
@@ -166,40 +198,40 @@
       }
     )
 
-    // 圖片顯示功能
-    // let num = $(".img").length;
-    // let p = 0;
+    圖片顯示功能
+    let num = $(".img").length;
+    let p = 0;
 
-    // $(".img").each((idx, dom) => {
+    $(".img").each((idx, dom) => {
 
 
-    //   if (idx < 3) {
-    //     $(dom).show()
-    //   }
-    // })
+      if (idx < 3) {
+        $(dom).show()
+      }
+    })
 
-    //圖片上移下移  
-    // $(".up,.down").on("click", function() {
-    //   $(".img").hide();
-    //   // console.log($(this));
+    圖片上移下移  
+    $(".up,.down").on("click", function() {
+      $(".img").hide();
+      // console.log($(this));
 
-    //   switch ($(this).attr('class')) {
-    //     case 'up':
-    //       p = (p > 0) ? --p : p;
-    //       break;
-    //     case 'down':
-    //       p = (p < num - 3) ? ++p : p;
-    //       break;
+      switch ($(this).attr('class')) {
+        case 'up':
+          p = (p > 0) ? --p : p;
+          break;
+        case 'down':
+          p = (p < num - 3) ? ++p : p;
+          break;
 
-    //   }
+      }
 
-    //   $(".img").each((idx, dom) => {
-    //     if (idx >= p && idx <= p + 2) {
-    //       $(dom).show()
-    //     }
-    //   })
+      $(".img").each((idx, dom) => {
+        if (idx >= p && idx <= p + 2) {
+          $(dom).show()
+        }
+      })
 
-    // })
+    })
 
     $(".mv").eq(0).show()
     let mvNum = $(".mv").length;
@@ -212,6 +244,7 @@
 
     }, 3000);
 
+
     $(".new").hover(
       function() {
         $(this).children('div').show()
@@ -221,6 +254,7 @@
       function() {
         $(this).children('div').hide()
       }
-    )
+    ) */
+
   </script>
 @endsection

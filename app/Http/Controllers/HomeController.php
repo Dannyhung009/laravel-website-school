@@ -24,7 +24,17 @@ class HomeController extends Controller
         $this->sideBar();
 
         // $ads = implode("　", AD::where("sh", 1)->get()->pluck('text')->toArray());
-        $mvims = Mvim::where("sh", 1)->get();
+        $mvims = Mvim::select("id","img")-> where("sh", 1)->get()->map(function($val,$idx){
+            $val->show=($idx==0)?true:false;
+            // $val->show=false;
+            $val->img=asset("storage/".$val->img);
+            return $val;
+            
+
+
+        });
+
+        // $mvims = Mvim::where("sh", 1)->get();
         $news = News::where("sh", 1)->get()->filter(function ($val, $idx) {
             if ($idx > 4) {
                 $this->view['more'] = '/news';
@@ -54,6 +64,8 @@ class HomeController extends Controller
         $menus = Menu::select('id', 'text','href')->where("sh", 1)->get();
         $images = Image::select('id','img')-> where("sh", 1)-> get()->map(function($val,$idx){
             $val ->img=asset("storage/".$val->img);
+
+            //在前端顯示3張圖片，其餘隱藏
             if($idx>2){
                 $val->show=false;
 
